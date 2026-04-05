@@ -1,5 +1,5 @@
 function uiShow(main, second, evalBool){
-    var appUI, firstParagraph, secondParagraph, evaluator, evaluatorOutput, continueButton, backButton;
+    let appUI, firstParagraph, secondParagraph, evaluator, evaluatorOutput, continueButton, backButton;
     appUI = document.getElementsByClassName('sections-ui')[0];
 
     if (main == 'clearAll'){
@@ -31,7 +31,7 @@ function uiShow(main, second, evalBool){
     continueButton.textContent = "Continuar";
     continueButton.onclick = function () {
         uiShow('clearAll');
-        loadEmotional(evaluator.value);
+        loadSection(currentSection+1, evaluator.value);
     };
 
     appUI.appendChild(firstParagraph);

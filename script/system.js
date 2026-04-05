@@ -1,58 +1,59 @@
 //System of evaluating the person
-var dataset = {
-    name: function() {
-        localStorage.getItem("usr");
-    },
-    emotional:{
-        humor:null,
-        ansiedade:null,
-    },
-    energia:{
-        sono:null,
-    },
-};
+let dataset = {};
 
 //Dividir em partes
 //emocional, energia (talvez automatic tracking), comportamento (em forma de jogo talvez)
 //varia de 0 a variável "variation" abaixo.
-var variation = 5;
-
-var currentSection = 1;
+let variation = 5; //varia de 0 a 5.
+let currentSection = 1; //Iara começar, primeira sessão
 
 function loadTesteAvaliativo(){
     uiShow('clearAll');
-    loadEmotional("start");
+    loadSection(1);
     return currentSection = 1;
 };
 
-var emotionalSections = {
+let sections = {
     A:{
         name: "Humor Geral",
         question: "Quão positivo foi seu humor hoje?",
-        evaluate: true
+        evaluate: true,
+        id:'humor',
     },
     B:{
         name: "Ansiedade/Tensão",
         question: "O quanto você se sentiu nervoso, tenso ou preocupado hoje?",
-        evaluate: true
+        evaluate: true,
+        id:'ansiedade',
+    },
+    C:{
+        name: "Irritabilidade",
+        question: "Quão paciente ou 'curto' você esteve com os outros hoje?",
+        evaluate: true,
+        id:'irritabilidade',
+    },
+    D:{
+        name: "Irritabilidade",
+        question: "Quão paciente ou 'curto' você esteve com os outros hoje?",
+        evaluate: true,
+        id:'irritabilidade',
     },
 };
 
-function loadEmotional(ans){
+const letters = [
+  "", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+function loadSection(num, ans){
     console.log(dataset);
-    var section, question, evaluate;
-    if(ans=='start'){
-        section = emotionalSections.A.name;
-        question = emotionalSections.A.question;
-        evaluate = emotionalSections.A.evaluate;
-        return uiShow(section, question, evaluate);
-    };
-    if(currentSection==1){
-        dataset.emotional.humor = ans;
-        currentSection = 2;
-        section = emotionalSections.B.name;
-        question = emotionalSections.B.question;
-        evaluate = emotionalSections.B.evaluate;
-        return uiShow(section, question, evaluate);
-    };
+    let section, question, evaluate;
+    currentSection = num;
+
+    let letter = letters[num];
+
+    section = sections[letter].name;
+    question = sections[letter].question;
+    evaluate = sections[letter].evaluate;
+    if(ans) dataset[sections[letters[num-1]].id] = ans;
+    return uiShow(section, question, evaluate);
 };
