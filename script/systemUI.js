@@ -1,5 +1,5 @@
 function uiShow(main, second, evalBool){
-    var appUI, firstParagraph, secondParagraph, evaluator, evaluatorOutput;
+    var appUI, firstParagraph, secondParagraph, evaluator, evaluatorOutput, continueButton, backButton;
     appUI = document.getElementsByClassName('sections-ui')[0];
 
     if (main == 'clearAll'){
@@ -16,14 +16,22 @@ function uiShow(main, second, evalBool){
     evaluator = document.createElement('input');
     evaluator.type = 'range';
     evaluator.min = 0;
-    evaluator.max = 10;
+    evaluator.max = variation;
     evaluator.id = "evaluator";
     evaluator.name = "evaluator";
+
     evaluatorOutput = document.createElement('output');
     evaluatorOutput.for = "evaluator";
     evaluatorOutput.value = evaluator.value;
     evaluator.oninput = function() {
         evaluatorOutput.value = this.value;
+    };
+
+    continueButton = document.createElement('button');
+    continueButton.textContent = "Continuar";
+    continueButton.onclick = function () {
+        uiShow('clearAll');
+        loadEmotional(evaluator.value);
     };
 
     appUI.appendChild(firstParagraph);
@@ -32,4 +40,5 @@ function uiShow(main, second, evalBool){
         appUI.appendChild(evaluator);
         appUI.appendChild(evaluatorOutput);
     };
+    appUI.appendChild(continueButton);
 };
